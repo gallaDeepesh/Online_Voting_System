@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore environment files in any directory
+**/.env
+
+# Ignore IntelliJ and Build folders
+.idea/
+**/target/
+**/out/
+**/node_modules/
