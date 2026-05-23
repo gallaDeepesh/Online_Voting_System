@@ -5,7 +5,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import secure_voting_backend.dto.LoginRequest;
 import secure_voting_backend.dto.RegisterRequest;
+import secure_voting_backend.entity.Role;
 import secure_voting_backend.entity.User;
+import secure_voting_backend.repository.RoleRepository;
 import secure_voting_backend.repository.UserRepository;
 
 import java.util.Optional;
@@ -17,10 +19,15 @@ public class AuthService {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     // Register User
     public String register(RegisterRequest request) {
+
+        Role userRole = roleRepository.findByName("USER").orElseThrow(()-> new RuntimeException("Role not found"));
 
         // Check if email already exists
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -32,6 +39,7 @@ public class AuthService {
 
         user.setName(request.getName());
         user.setEmail(request.getEmail());
+        user.setRole(userRole);
 
         // Hash password before saving
         user.setPassword(
