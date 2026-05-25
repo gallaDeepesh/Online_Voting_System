@@ -21,10 +21,6 @@ public class Candidate {
     @Column(nullable = false)
     private String partyName;
 
-    // Candidate Manifesto
-    @Column(columnDefinition = "TEXT")
-    private String manifesto;
-
     // Candidate Image URL
     private String imageUrl;
 
@@ -53,13 +49,11 @@ public class Candidate {
     // Parameterized Constructor
     public Candidate(String name,
                      String partyName,
-                     String manifesto,
                      String imageUrl,
                      Election election) {
 
         this.name = name;
         this.partyName = partyName;
-        this.manifesto = manifesto;
         this.imageUrl = imageUrl;
         this.election = election;
         this.createdAt = LocalDateTime.now();
@@ -87,14 +81,6 @@ public class Candidate {
 
     public void setPartyName(String partyName) {
         this.partyName = partyName;
-    }
-
-    public String getManifesto() {
-        return manifesto;
-    }
-
-    public void setManifesto(String manifesto) {
-        this.manifesto = manifesto;
     }
 
     public String getImageUrl() {
