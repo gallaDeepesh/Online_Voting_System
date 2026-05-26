@@ -29,9 +29,6 @@ public class Election {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private boolean Active;
-
     @OneToMany(
             mappedBy = "election",
             cascade = CascadeType.ALL,
@@ -127,10 +124,10 @@ public class Election {
     }
 
     public boolean isActive() {
-        return Active;
-    }
 
-    public void setActive(boolean active) {
-        Active = active;
+        LocalDateTime now = LocalDateTime.now();
+
+        return !now.isBefore(startTime)
+                && !now.isAfter(endTime);
     }
 }
