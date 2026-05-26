@@ -37,7 +37,6 @@ public class ElectionService {
                 now.isAfter(request.getStartTime())
                         && now.isBefore(request.getEndTime());
 
-        election.setActive(active);
 
         Election savedElection = electionRepository.save(election);
 
@@ -84,14 +83,6 @@ public class ElectionService {
         election.setDescription(request.getDescription());
         election.setStartTime(request.getStartTime());
         election.setEndTime(request.getEndTime());
-
-        LocalDateTime now = LocalDateTime.now();
-
-        boolean active =
-                now.isAfter(request.getStartTime())
-                        && now.isBefore(request.getEndTime());
-
-        election.setActive(active);
 
         Election updatedElection = electionRepository.save(election);
 
