@@ -3,6 +3,7 @@ package secure_voting_backend.controller;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import secure_voting_backend.dto.CandidateRequest;
+import secure_voting_backend.dto.CandidateResponse;
 import secure_voting_backend.entity.Candidate;
 import secure_voting_backend.service.CandidateService;
 
@@ -24,7 +25,11 @@ public class CandidateController {
     }
 
     @GetMapping("/election/{electionId}")
-    public List<Candidate> getCandidatesByElection(@PathVariable Long electionId) {
+    public List<CandidateResponse> getCandidatesByElection(
+            @PathVariable Long electionId) {
+
         return candidateService.getCandidatesByElection(electionId);
     }
+
+    
 }

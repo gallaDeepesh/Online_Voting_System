@@ -7,11 +7,8 @@ public class CandidateRequest {
 
     @NotBlank(message = "Name is required")
     private String name;
-
     private String partyName;
-
     private String symbol;
-
     @NotNull(message = "Election ID is required")
     private Long electionId;
 

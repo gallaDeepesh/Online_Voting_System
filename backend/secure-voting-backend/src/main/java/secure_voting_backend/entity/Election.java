@@ -1,6 +1,7 @@
 package secure_voting_backend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class Election {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference
     private List<Candidate> candidates;
 
     @OneToMany(

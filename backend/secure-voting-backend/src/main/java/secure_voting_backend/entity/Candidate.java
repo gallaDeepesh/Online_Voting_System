@@ -1,5 +1,7 @@
 package secure_voting_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -31,6 +33,7 @@ public class Candidate {
     // Many Candidates -> One Election
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "election_id", nullable = false)
+    @JsonBackReference
     private Election election;
 
     // One Candidate -> Many Votes
