@@ -49,6 +49,7 @@ public class Election {
     public Election() {
         this.createdAt = LocalDateTime.now();
     }
+    private boolean active=false;
 
     // Parameterized Constructor
     public Election(String title,
@@ -123,6 +124,10 @@ public class Election {
 
     public void setVotes(List<Vote> votes) {
         this.votes = votes;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public boolean isActive() {
