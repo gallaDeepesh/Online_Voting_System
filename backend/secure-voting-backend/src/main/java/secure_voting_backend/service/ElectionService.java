@@ -37,7 +37,7 @@ public class ElectionService {
                 now.isAfter(request.getStartTime())
                         && now.isBefore(request.getEndTime());
 
-
+        election.setActive(active);
         Election savedElection = electionRepository.save(election);
 
         return mapToResponse(savedElection);
