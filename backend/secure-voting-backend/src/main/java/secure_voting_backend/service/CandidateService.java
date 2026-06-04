@@ -8,6 +8,7 @@ import secure_voting_backend.entity.Election;
 import secure_voting_backend.repository.CandidateRepository;
 import secure_voting_backend.repository.ElectionRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -49,5 +50,12 @@ public class CandidateService {
                         candidate.getImageUrl()
                 ))
                 .toList();
+    }
+
+    public LocalDateTime getEndTime(Long electionId) {
+        Election election = electionRepository.findById(electionId)
+                .orElseThrow(() -> new RuntimeException("Election not found"));
+        return election.getEndTime();
+
     }
 }

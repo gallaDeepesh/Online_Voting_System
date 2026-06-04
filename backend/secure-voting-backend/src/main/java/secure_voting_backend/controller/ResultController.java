@@ -18,7 +18,6 @@ public class ResultController {
     @GetMapping("/{electionId}")
     public List<ResultResponse> getResults(
             @PathVariable Long electionId) {
-
         return resultService.getResults(electionId);
     }
 
