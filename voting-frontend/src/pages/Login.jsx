@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../services/api";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
 
@@ -33,10 +34,18 @@ function Login() {
 
             // Store JWT Token
             localStorage.setItem("token", response.data);
+            const decoded = jwtDecode(localStorage.getItem("token"));
+            const role = decoded.role;
+            console.log(role);
 
             setMessage("Login Successful");
 
-            navigate("/dashboard");
+            if (role === "ADMIN") {
+                navigate("/AdminDashboard");
+            } 
+            else {
+                navigate("/Userdashboard");
+            }
 
         } catch (error) {
 

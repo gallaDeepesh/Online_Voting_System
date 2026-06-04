@@ -43,13 +43,13 @@ public class ElectionService {
         return mapToResponse(savedElection);
     }
 
-    public List<ElectionResponse> getActiveElections() {
+    public List<ElectionResponse> getAllElections() {
 
         LocalDateTime now = LocalDateTime.now();
 
         List<Election> elections =
                 electionRepository
-                        .findByStartTimeBeforeAndEndTimeAfter(now, now);
+                        .findAll();
 
         return elections.stream()
                 .map(this::mapToResponse)
@@ -66,6 +66,7 @@ public class ElectionService {
         response.setStartTime(election.getStartTime());
         response.setEndTime(election.getEndTime());
         response.setActive(election.isActive());
+        response.setStatus(getElectionStatus(election));
 
         return response;
     }
@@ -96,4 +97,19 @@ public class ElectionService {
 
         electionRepository.delete(election);
     }
+    public String getElectionStatus(Election election) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        if (now.isBefore(election.getStartTime())) {
+            return "UPCOMING";
+        }
+
+        if (now.isAfter(election.getEndTime())) {
+            return "COMPLETED";
+        }
+
+        return "ACTIVE";
+    }
+
 }

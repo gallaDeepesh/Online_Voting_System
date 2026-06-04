@@ -7,6 +7,7 @@ import secure_voting_backend.dto.CandidateResponse;
 import secure_voting_backend.entity.Candidate;
 import secure_voting_backend.service.CandidateService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,12 @@ public class CandidateController {
 
         return candidateService.getCandidatesByElection(electionId);
     }
+
+    @GetMapping("/election/endtime/{electionId}")
+    public LocalDateTime getEndTime(@PathVariable Long electionId){
+        return candidateService.getEndTime(electionId);
+    }
+
 
     
 }

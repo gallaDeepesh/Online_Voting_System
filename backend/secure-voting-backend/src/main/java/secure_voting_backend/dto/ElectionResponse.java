@@ -14,6 +14,7 @@ public class ElectionResponse {
     private LocalDateTime endTime;
 
     private boolean active;
+    private String status;
 
     public ElectionResponse() {
     }
@@ -77,5 +78,13 @@ public class ElectionResponse {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

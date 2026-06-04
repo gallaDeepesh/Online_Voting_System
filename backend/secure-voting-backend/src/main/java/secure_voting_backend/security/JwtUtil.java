@@ -4,6 +4,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
+import secure_voting_backend.entity.Role;
+import secure_voting_backend.entity.User;
+import secure_voting_backend.repository.UserRepository;
 
 import java.security.Key;
 import java.util.Date;
@@ -15,11 +19,13 @@ public class JwtUtil {
     private static final Key KEY =
              Keys.hmacShaKeyFor(SECRET.getBytes());
 
+
     // Generate Token
-    public static String generateToken(String email) {
+    public static String generateToken(String email, String role) {
 
         return Jwts.builder()
                 .setSubject(email)
+                .claim("role" , role)
                 .setIssuedAt(new Date())
                 .setExpiration(
                         new Date(System.currentTimeMillis() + 1000 * 60 * 60)

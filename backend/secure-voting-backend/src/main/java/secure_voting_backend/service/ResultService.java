@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import secure_voting_backend.dto.ElectionStatsResponse;
 import secure_voting_backend.dto.ResultResponse;
+import secure_voting_backend.entity.Election;
 import secure_voting_backend.repository.CandidateRepository;
+import secure_voting_backend.repository.ElectionRepository;
 import secure_voting_backend.repository.VoteRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,12 +18,27 @@ public class ResultService {
 
     private final VoteRepository voteRepository;
     private final CandidateRepository candidateRepository;
+    private final ElectionRepository electionRepository;
+
+    private void validateResultsAccess(Long electionId) {
+
+        Election election = electionRepository.findById(electionId)
+                .orElseThrow(() -> new RuntimeException("Election not found"));
+
+        if (LocalDateTime.now().isBefore(election.getEndTime())) {
+            throw new RuntimeException(
+                    "Results are available only after election completion");
+        }
+    }
 
     public List<ResultResponse> getResults(Long electionId) {
+        validateResultsAccess(electionId);
         return voteRepository.getElectionResults(electionId);
     }
 
     public ResultResponse getWinner(Long electionId) {
+
+        validateResultsAccess(electionId);
 
         List<ResultResponse> results =
                 voteRepository.getElectionResults(electionId);
@@ -33,6 +51,7 @@ public class ResultService {
     }
 
     public ElectionStatsResponse getStatistics(Long electionId) {
+        validateResultsAccess(electionId);
         Long totalVotes = voteRepository.countByElectionId(electionId);
 
         Long totalCandidates = candidateRepository.countByElectionId(electionId);

@@ -126,7 +126,7 @@ function Register() {
 
                             <div className="text-center mt-3">
                                 Already have an account?{" "}
-                                <Link to="/login">
+                                <Link to="/">
                                     Login
                                 </Link>
                             </div>

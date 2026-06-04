@@ -14,3 +14,17 @@ export const getCandidatesByElection = (electionId) => {
         }
     );
 };
+export const addCandidate = async (candidateData) => {
+
+    const token = localStorage.getItem("token");
+
+    return axios.post(
+        `${API_URL}/candidates`,
+        candidateData,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+};

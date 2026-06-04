@@ -29,13 +29,9 @@ public class ElectionController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/active")
-    public ResponseEntity<List<ElectionResponse>> getActiveElections() {
-
-        List<ElectionResponse> responses =
-                electionService.getActiveElections();
-
-        return ResponseEntity.ok(responses);
+    @GetMapping("/all")
+    public List<ElectionResponse> getAllElections() {
+        return electionService.getAllElections();
     }
 
     @PutMapping("/{id}")

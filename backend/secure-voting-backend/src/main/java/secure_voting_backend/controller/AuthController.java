@@ -11,8 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import secure_voting_backend.dto.LoginRequest;
 import secure_voting_backend.dto.RegisterRequest;
+import secure_voting_backend.entity.User;
+import secure_voting_backend.repository.UserRepository;
 import secure_voting_backend.security.JwtUtil;
 import secure_voting_backend.service.AuthService;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -23,6 +27,9 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // Register API
     @PostMapping("/register")
@@ -38,8 +45,11 @@ public class AuthController {
 
         Authentication authentication = authenticationManager.authenticate (
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() ->
+                new RuntimeException("User not found"));
+        String token = JwtUtil.generateToken(request.getEmail(), user.getRole().getName());
 
-        String token = JwtUtil.generateToken(request.getEmail());
+
 
         return ResponseEntity.ok(token);
     }
