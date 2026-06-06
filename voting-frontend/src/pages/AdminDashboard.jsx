@@ -1,73 +1,93 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
+import "./style/AdminDashboard.css";
 
 function AdminDashboard() {
 
-    const [elections, setElections] = useState([]);
     const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/");
     };
 
-
     return (
-        <div className="container mt-5">
+        <div className="admin-dashboard-container">
 
-            <div className="row justify-content-center">
+            <div className="admin-dashboard-header">
 
-                <div className="col-md-8">
+                <div>
+                    <h1 className="admin-dashboard-title">
+                        Admin Dashboard
+                    </h1>
 
-                    <div className="card shadow">
+                    <p className="admin-dashboard-subtitle">
+                        Manage elections, candidates and voting activities
+                    </p>
+                </div>
 
-                        <div className="card-body">
+                <button
+                    className="logout-btn"
+                    onClick={handleLogout}
+                >
+                    Logout
+                </button>
 
-                            <h1 className="text-center mb-3">
-                                Admin Dashboard
-                            </h1>
+            </div>
 
-                            <p className="text-center text-muted mb-4">
-                                Manage Elections and Candidates
-                            </p>
+            <div className="admin-actions-grid">
 
-                            <div className="d-grid gap-3">
+                <div
+                    className="admin-action-card"
+                    onClick={() =>
+                        navigate("/admin/create-election")
+                    }
+                >
+                    <h3>Create Election</h3>
 
-                                <button
-                                    className="btn btn-success btn-lg"
-                                    onClick={() => navigate("/admin/create-election")}
-                                >
-                                    Create Election
-                                </button>
+                    <p>
+                        Create and schedule new elections
+                        for voters.
+                    </p>
 
-                                <button
-                                    className="btn btn-primary btn-lg"
-                                    onClick={() => navigate("/admin/Addcandidates")}
-                                >
-                                    Add Candidate
-                                </button>
+                    <button className="action-btn create-btn">
+                        Create Election
+                    </button>
+                </div>
 
-                                <button
-                                    className="btn btn-warning btn-lg"
-                                    onClick={() => navigate("/admin/manage-elections")}
-                                >
-                                    Manage Elections
-                                </button>
+                <div
+                    className="admin-action-card"
+                    onClick={() =>
+                        navigate("/admin/Addcandidates")
+                    }
+                >
+                    <h3>Add Candidate</h3>
 
-                                <button
-                                    className="btn btn-danger btn-lg"
-                                    onClick={handleLogout}
-                                >
-                                    Logout
-                                </button>
+                    <p>
+                        Add candidates and assign them
+                        to elections.
+                    </p>
 
-                            </div>
+                    <button className="action-btn candidate-btn">
+                        Add Candidate
+                    </button>
+                </div>
 
-                        </div>
+                <div
+                    className="admin-action-card"
+                    onClick={() =>
+                        navigate("/admin/manage-elections")
+                    }
+                >
+                    <h3>Manage Elections</h3>
 
-                    </div>
+                    <p>
+                        View, edit and monitor all
+                        election activities.
+                    </p>
 
+                    <button className="action-btn manage-btn">
+                        Manage Elections
+                    </button>
                 </div>
 
             </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllElections } from "../services/electionService";
+import "./style/Dashboard.css";
 
 function Dashboard() {
 
@@ -31,38 +32,50 @@ function Dashboard() {
 
     const logout = () => {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/");
     };
 
     if (loading) {
         return (
-            <div className="container mt-5 text-center">
+            <div className="dashboard-loading">
                 <h3>Loading Elections...</h3>
             </div>
         );
     }
 
     return (
-        <div className="container mt-4">
+        <div className="dashboard-container">
 
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>User Dashboard</h2>
+            {/* Header */}
+            <div className="dashboard-header">
+
+                <div>
+                    <h1 className="dashboard-title">
+                        Online Voting System
+                    </h1>
+
+                    <p className="dashboard-subtitle">
+                        Participate in elections securely and transparently
+                    </p>
+                </div>
 
                 <button
-                    className="btn btn-danger"
+                    className="logout-btn"
                     onClick={logout}
                 >
                     Logout
                 </button>
+
             </div>
 
-            <div className="btn-group w-100 mb-4">
+            {/* Tabs */}
+            <div className="dashboard-tabs">
 
                 <button
-                    className={`btn ${
+                    className={`tab-btn ${
                         selectedTab === "ACTIVE"
-                            ? "btn-primary"
-                            : "btn-outline-primary"
+                            ? "active-tab"
+                            : ""
                     }`}
                     onClick={() => setSelectedTab("ACTIVE")}
                 >
@@ -70,10 +83,10 @@ function Dashboard() {
                 </button>
 
                 <button
-                    className={`btn ${
+                    className={`tab-btn ${
                         selectedTab === "UPCOMING"
-                            ? "btn-warning"
-                            : "btn-outline-warning"
+                            ? "active-tab"
+                            : ""
                     }`}
                     onClick={() => setSelectedTab("UPCOMING")}
                 >
@@ -81,10 +94,10 @@ function Dashboard() {
                 </button>
 
                 <button
-                    className={`btn ${
+                    className={`tab-btn ${
                         selectedTab === "COMPLETED"
-                            ? "btn-success"
-                            : "btn-outline-success"
+                            ? "active-tab"
+                            : ""
                     }`}
                     onClick={() => setSelectedTab("COMPLETED")}
                 >
@@ -93,92 +106,113 @@ function Dashboard() {
 
             </div>
 
-            <div className="row">
+            {/* Elections Grid */}
+            <div className="elections-grid">
 
                 {filteredElections.length === 0 ? (
-                    <div className="col-12">
-                        <div className="alert alert-info">
-                            No elections found.
-                        </div>
+
+                    <div className="no-election-card">
+                        <h4>No elections available</h4>
+                        <p>
+                            There are currently no elections
+                            under this category.
+                        </p>
                     </div>
+
                 ) : (
 
                     filteredElections.map((election) => (
 
                         <div
                             key={election.id}
-                            className="col-md-6 mb-4"
+                            className="election-card"
                         >
-                            <div className="card shadow-sm h-100">
 
-                                <div className="card-body">
+                            <div className="election-card-header">
 
-                                    <h4 className="card-title">
-                                        {election.title}
-                                    </h4>
+                                <h3 className="election-title">
+                                    {election.title}
+                                </h3>
 
-                                    <p className="card-text">
-                                        {election.description}
-                                    </p>
+                                <span
+                                    className={`status-badge ${selectedTab.toLowerCase()}`}
+                                >
+                                    {selectedTab}
+                                </span>
 
-                                    <p>
-                                        <strong>Start:</strong>{" "}
+                            </div>
+
+                            <p className="election-description">
+                                {election.description}
+                            </p>
+
+                            <div className="election-details">
+
+                                <div className="detail-item">
+                                    <strong>Start Date:</strong>
+                                    <span>
                                         {new Date(
-                                            election.startDate
-                                        ).toLocaleString()}
-                                    </p>
+                                            election.startTime
+                                        ).toLocaleDateString('en-GB')}
+                                    </span>
+                                </div>
 
-                                    <p>
-                                        <strong>End:</strong>{" "}
+                                <div className="detail-item">
+                                    <strong>End Date:</strong>
+                                    <span>
                                         {new Date(
-                                            election.endDate
-                                        ).toLocaleString()}
-                                    </p>
-
-                                    {selectedTab === "ACTIVE" && (
-                                        <button
-                                            className="btn btn-primary"
-                                            onClick={() =>
-                                                navigate(
-                                                    `/election/${election.id}`,
-                                                    {
-                                                        state: {
-                                                            endTime:
-                                                                election.endDate
-                                                        }
-                                                    }
-                                                )
-                                            }
-                                        >
-                                            Vote Now
-                                        </button>
-                                    )}
-
-                                    {selectedTab === "UPCOMING" && (
-                                        <button
-                                            className="btn btn-secondary"
-                                            disabled
-                                        >
-                                            Not Started Yet
-                                        </button>
-                                    )}
-
-                                    {selectedTab === "COMPLETED" && (
-                                        <button
-                                            className="btn btn-success"
-                                            onClick={() =>
-                                                navigate(
-                                                    `/results/${election.id}`
-                                                )
-                                            }
-                                        >
-                                            View Results
-                                        </button>
-                                    )}
-
+                                            election.endTime
+                                        ).toLocaleDateString('en-GB')}
+                                    </span>
                                 </div>
 
                             </div>
+
+                            <div className="card-footer-custom">
+
+                                {selectedTab === "ACTIVE" && (
+                                    <button
+                                        className="vote-btn"
+                                        onClick={() =>
+                                            navigate(
+                                                `/election/${election.id}`,
+                                                {
+                                                    state: {
+                                                        endTime:
+                                                            election.endTime
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    >
+                                        Vote Now
+                                    </button>
+                                )}
+
+                                {selectedTab === "UPCOMING" && (
+                                    <button
+                                        className="disabled-btn"
+                                        disabled
+                                    >
+                                        Not Started Yet
+                                    </button>
+                                )}
+
+                                {selectedTab === "COMPLETED" && (
+                                    <button
+                                        className="result-btn"
+                                        onClick={() =>
+                                            navigate(
+                                                `/results/${election.id}`
+                                            )
+                                        }
+                                    >
+                                        View Results
+                                    </button>
+                                )}
+
+                            </div>
+
                         </div>
 
                     ))

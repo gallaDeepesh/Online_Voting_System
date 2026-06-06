@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./style/Login.css"
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../services/api";
 import { jwtDecode } from "jwt-decode";
@@ -14,6 +15,7 @@ function Login() {
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -42,7 +44,7 @@ function Login() {
 
             if (role === "ADMIN") {
                 navigate("/AdminDashboard");
-            } 
+            }
             else {
                 navigate("/Userdashboard");
             }
@@ -60,14 +62,14 @@ function Login() {
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
+        <div className="login-container">
+            <div className="row justify-content-center w-100">
                 <div className="col-md-6">
 
-                    <div className="card shadow">
+                    <div className="card login-card">
                         <div className="card-body">
 
-                            <h2 className="text-center mb-4">
+                            <h2 className="login-title">
                                 Login
                             </h2>
 
@@ -94,34 +96,39 @@ function Login() {
                                     />
                                 </div>
 
-                                <div className="mb-3">
-                                    <label className="form-label">
-                                        Password
-                                    </label>
+                                <div className="form-group">
+                                    <label className="form-label">Password</label>
 
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        required
-                                    />
+                                    <div className="password-container">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            className="form-control"
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            required
+                                        />
+
+                                        <button
+                                            type="button"
+                                            className="show-password-btn"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? "Hide" : "Show"}
+                                        </button>
+                                    </div>
                                 </div>
-
                                 <button
                                     type="submit"
-                                    className="btn btn-primary w-100"
+                                    className="btn btn-primary w-100 login-btn"
                                     disabled={loading}
                                 >
-                                    {loading
-                                        ? "Logging In..."
-                                        : "Login"}
+                                    {loading ? "Logging In..." : "Login"}
                                 </button>
 
                             </form>
 
-                            <div className="text-center mt-3">
+                            <div className="login-link">
                                 Don't have an account?{" "}
                                 <Link to="/register">
                                     Register
@@ -136,5 +143,4 @@ function Login() {
         </div>
     );
 }
-
 export default Login;

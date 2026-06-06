@@ -5,8 +5,11 @@ import {
     getWinner,
     getStats
 } from "../services/resultService";
+import { useNavigate } from "react-router-dom";
+import "./style/Result.css";
 
 function Result() {
+    const navigate = useNavigate();
 
     const { electionId } = useParams();
 
@@ -15,6 +18,7 @@ function Result() {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    
 
     useEffect(() => {
 
@@ -52,80 +56,111 @@ function Result() {
 
     }, [electionId]);
 
-    if (loading) {
-        return <h2>Loading results...</h2>;
-    }
-
-    if (error) {
-        return (
-            <div>
-                <h2>Results</h2>
-                <p>{error}</p>
-            </div>
-        );
-    }
-
+if (loading) {
     return (
-        <div className="container">
-            <h1>Election Results</h1>
+        <div className="result-loading">
+            Loading Results...
+        </div>
+    );
+}
 
-            {stats && (
-                <div
-                    style={{
-                        border: "1px solid #ddd",
-                        padding: "15px",
-                        marginBottom: "20px"
-                    }}
-                >
-                    <h2>Election Statistics</h2>
+if (error) {
+    return (
+        <div className="result-container">
+
+            <div className="page-header">
+
+                <div>
+                    <h1>Election Results</h1>
+                    <p>Election outcome and statistics</p>
+                </div>
+
+            </div>
+
+            <div className="error-card">
+                {error}
+            </div>
+
+        </div>
+    );
+}
+
+return (
+    <div className="result-container">
+
+        <div className="page-header">
+
+            <div>
+                <h1>Election Results</h1>
+                <p>
+                    View election outcome and voting statistics
+                </p>
+            </div>
+
+            <button
+                className="back-btn"
+                onClick={() => navigate(-1)}
+            >
+                Back
+            </button>
+
+        </div>
+
+        {stats && (
+
+            <div className="stats-grid">
+
+                <div className="stat-card">
+                    <h3>Total Votes</h3>
+                    <span>{stats.totalVotes}</span>
+                </div>
+
+                <div className="stat-card">
+                    <h3>Total Candidates</h3>
+                    <span>{stats.totalCandidates}</span>
+                </div>
+
+                <div className="stat-card">
+                    <h3>Winner</h3>
+                    <span>{stats.winner}</span>
+                </div>
+
+            </div>
+
+        )}
+
+        {winner && (
+
+            <div className="winner-card">
+
+                <div className="winner-icon">
+                    🏆
+                </div>
+
+                <div>
+                    <h2>Election Winner</h2>
+
+                    <h3>
+                        {winner.candidateName}
+                    </h3>
 
                     <p>
-                        <strong>Total Votes:</strong>{" "}
-                        {stats.totalVotes}
-                    </p>
-
-                    <p>
-                        <strong>Total Candidates:</strong>{" "}
-                        {stats.totalCandidates}
-                    </p>
-
-                    <p>
-                        <strong>Winner:</strong>{" "}
-                        {stats.winner}
+                        Total Votes:
+                        {" "}
+                        {winner.totalVotes}
                     </p>
                 </div>
-            )}
 
-            {winner && (
-                <div
-                    style={{
-                        border: "1px solid green",
-                        padding: "15px",
-                        marginBottom: "20px"
-                    }}
-                >
-                    <h2>Winner</h2>
+            </div>
 
-                    <p>
-                        <strong>{winner.candidateName}</strong>
-                    </p>
+        )}
 
-                    <p>
-                        Votes: {winner.totalVotes}
-                    </p>
-                </div>
-            )}
+        <div className="results-table-card">
 
             <h2>Candidate Results</h2>
 
-            <table
-                border="1"
-                cellPadding="10"
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse"
-                }}
-            >
+            <table className="results-table">
+
                 <thead>
                     <tr>
                         <th>Candidate</th>
@@ -134,16 +169,31 @@ function Result() {
                 </thead>
 
                 <tbody>
+
                     {results.map((result) => (
-                        <tr key={result.candidateId}>
-                            <td>{result.candidateName}</td>
-                            <td>{result.totalVotes}</td>
+
+                        <tr
+                            key={result.candidateId}
+                        >
+                            <td>
+                                {result.candidateName}
+                            </td>
+
+                            <td>
+                                {result.totalVotes}
+                            </td>
                         </tr>
+
                     ))}
+
                 </tbody>
+
             </table>
+
         </div>
-    );
+
+    </div>
+);
 }
 
 export default Result;

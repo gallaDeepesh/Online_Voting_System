@@ -1,0 +1,140 @@
+/* Full Page Background */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #eef2f7;
+}
+
+/* Center the Login Card */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Large Login Card */
+.login-card {
+    width: 100%;
+    max-width: 500px;
+    border: none;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.login-card .card-body {
+    padding: 50px;
+    width: 400px;
+}
+
+/* Title */
+.login-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 40px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* Labels */
+.form-label {
+    display: block;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
+
+/* Inputs */
+.form-control {
+    width: 90%;
+    height: 60px;
+    font-size: 18px;
+    padding: 0 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    margin: 8px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.2);
+}
+
+/* Login Button */
+.login-btn {
+    width: 180px;
+    height: 60px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    margin: 35px auto;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+/* Register Text */
+.login-link {
+    text-align: center;
+    font-size: 22px;
+    color: #64748b;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 8px;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Alert */
+.alert {
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.password-container {
+    position: relative;
+}
+
+.show-password-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.show-password-btn:hover {
+    color: #1d4ed8;
+}
