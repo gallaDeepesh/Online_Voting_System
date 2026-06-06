@@ -1,0 +1,272 @@
+/* Page Background */
+body {
+    margin: 0;
+    padding: 0;
+    background: #f4f7fc;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Loading */
+.dashboard-loading {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+/* Main Container */
+.dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+/* Header */
+.dashboard-header {
+    background: white;
+    border-radius: 16px;
+    padding: 25px 35px;
+    margin-bottom: 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.dashboard-subtitle {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 1rem;
+}
+
+/* Logout Button */
+.logout-btn {
+    border: none;
+    background: #ef4444;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* Tabs */
+.dashboard-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    border: none;
+    background: white;
+    color: #334155;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.tab-btn:hover {
+    transform: translateY(-2px);
+}
+
+.active-tab {
+    background: #2563eb;
+    color: white;
+}
+
+/* Election Grid */
+.elections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 25px;
+}
+
+/* Election Card */
+.election-card {
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.3s ease;
+}
+
+.election-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.election-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.election-title {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+}
+
+.status-badge.active {
+    background: #22c55e;
+}
+
+.status-badge.upcoming {
+    background: #f59e0b;
+}
+
+.status-badge.completed {
+    background: #3b82f6;
+}
+
+/* Description */
+.election-description {
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Election Details */
+.election-details {
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.detail-item strong {
+    color: #334155;
+    margin-bottom: 4px;
+}
+
+.detail-item span {
+    color: #64748b;
+}
+
+/* Footer */
+.card-footer-custom {
+    margin-top: 20px;
+}
+
+/* Buttons */
+.vote-btn,
+.result-btn,
+.disabled-btn {
+    width: 100%;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.vote-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.vote-btn:hover {
+    background: #1d4ed8;
+}
+
+.result-btn {
+    background: #22c55e;
+    color: white;
+}
+
+.result-btn:hover {
+    background: #16a34a;
+}
+
+.disabled-btn {
+    background: #cbd5e1;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+/* Empty State */
+.no-election-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    grid-column: 1 / -1;
+}
+
+.no-election-card h4 {
+    margin-bottom: 10px;
+    color: #334155;
+}
+
+.no-election-card p {
+    color: #64748b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .dashboard-tabs {
+        justify-content: center;
+    }
+
+    .elections-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-container {
+        padding: 15px;
+    }
+}

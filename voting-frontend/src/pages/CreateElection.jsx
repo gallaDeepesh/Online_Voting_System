@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createElection } from "../services/electionService";
+import "./style/CreateElection.css";
 
 function CreateElection() {
-    // 1. Corrected state structure using 'startTime' and 'endTime'
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -24,7 +28,6 @@ function CreateElection() {
         });
     };
 
-    // 2. Fixed reset form keys to match the state mapping exactly
     const resetForm = () => {
         setFormData({
             title: "",
@@ -37,11 +40,13 @@ function CreateElection() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Optional Frontend Validation: Ensure end time comes after start time
-        if (new Date(formData.endTime) <= new Date(formData.startTime)) {
+        if (
+            new Date(formData.endTime) <=
+            new Date(formData.startTime)
+        ) {
             setMessage({
                 type: "error",
-                text: "The End Date & Time must be after the Start Date & Time."
+                text: "End time must be after start time."
             });
             return;
         }
@@ -50,7 +55,6 @@ function CreateElection() {
             setLoading(true);
             setMessage({ type: "", text: "" });
 
-            // Sends the perfectly structured payload to your Spring Boot API
             await createElection(formData);
 
             setMessage({
@@ -61,7 +65,6 @@ function CreateElection() {
             resetForm();
 
         } catch (error) {
-            console.error(error);
 
             setMessage({
                 type: "error",
@@ -76,109 +79,115 @@ function CreateElection() {
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
+        <div className="create-election-container">
 
-                    <div className="card shadow">
-                        <div className="card-body">
+            <div className="page-header">
 
-                            <h2 className="text-center mb-4">
-                                Create Election
-                            </h2>
+                <div>
+                    <h1>Create Election</h1>
+                    <p>
+                        Schedule and configure a new election
+                    </p>
+                </div>
 
-                            {message.text && (
-                                <div
-                                    className={`alert ${
-                                        message.type === "success"
-                                            ? "alert-success"
-                                            : "alert-danger"
-                                    }`}
-                                >
-                                    {message.text}
-                                </div>
-                            )}
+                <button
+                    className="back-btn"
+                    onClick={() =>
+                        navigate("/AdminDashboard")
+                    }
+                >
+                    Back
+                </button>
 
-                            <form onSubmit={handleSubmit}>
+            </div>
 
-                                <div className="mb-3">
-                                    <label className="form-label">
-                                        Election Title
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="title"
-                                        className="form-control"
-                                        placeholder="Enter election title"
-                                        value={formData.title}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
+            <div className="create-election-card">
 
-                                <div className="mb-3">
-                                    <label className="form-label">
-                                        Description
-                                    </label>
-                                    <textarea
-                                        name="description"
-                                        className="form-control"
-                                        rows="4"
-                                        placeholder="Enter election description"
-                                        value={formData.description}
-                                        onChange={handleChange}
-                                    />
-                                </div>
+                {message.text && (
+                    <div
+                        className={`message-alert ${
+                            message.type === "success"
+                                ? "success-alert"
+                                : "error-alert"
+                        }`}
+                    >
+                        {message.text}
+                    </div>
+                )}
 
-                                <div className="row">
+                <form onSubmit={handleSubmit}>
 
-                                    <div className="col-md-6 mb-3">
-                                        <label className="form-label">
-                                            Start Date & Time
-                                        </label>
-                                        <input
-                                            type="datetime-local"
-                                            name="startTime"
-                                            className="form-control"
-                                            value={formData.startTime}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
+                    <div className="form-group">
+                        <label>Election Title</label>
 
-                                    <div className="col-md-6 mb-3">
-                                        <label className="form-label">
-                                            End Date & Time
-                                        </label>
-                                        <input
-                                            type="datetime-local"
-                                            name="endTime"
-                                            className="form-control"
-                                            value={formData.endTime}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
-
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className="btn btn-success w-100"
-                                    disabled={loading}
-                                >
-                                    {loading
-                                        ? "Creating Election..."
-                                        : "Create Election"}
-                                </button>
-
-                            </form>
-
-                        </div>
+                        <input
+                            type="text"
+                            name="title"
+                            className="custom-input"
+                            placeholder="Enter election title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
 
-                </div>
+                    <div className="form-group">
+                        <label>Description</label>
+
+                        <textarea
+                            name="description"
+                            className="custom-textarea"
+                            rows="5"
+                            placeholder="Enter election description"
+                            value={formData.description}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className="datetime-row">
+
+                        <div className="form-group">
+                            <label>Start Date & Time</label>
+
+                            <input
+                                type="datetime-local"
+                                name="startTime"
+                                className="custom-input"
+                                value={formData.startTime}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label>End Date & Time</label>
+
+                            <input
+                                type="datetime-local"
+                                name="endTime"
+                                className="custom-input"
+                                value={formData.endTime}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="create-election-btn"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "Creating Election..."
+                            : "Create Election"}
+                    </button>
+
+                </form>
+
             </div>
+
         </div>
     );
 }

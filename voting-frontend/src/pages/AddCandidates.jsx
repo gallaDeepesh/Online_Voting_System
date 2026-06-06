@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { getAllElections } from "../services/electionService";
 import { addCandidate } from "../services/candidateService";
+import { useNavigate } from "react-router-dom";
+import "./style/AddCandidates.css";
 
 function AddCandidates() {
+    const navigate =useNavigate();
     const [elections, setElections] = useState([]);
 
     const [formData, setFormData] = useState({
@@ -93,118 +96,136 @@ function AddCandidates() {
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
+    <div className="add-candidate-container">
 
-                    <div className="card shadow">
-                        <div className="card-body">
+        <div className="page-header">
 
-                            <h2 className="text-center mb-4">
-                                Add Candidate
-                            </h2>
-
-                            {message.text && (
-                                <div
-                                    className={`alert ${
-                                        message.type === "success"
-                                            ? "alert-success"
-                                            : "alert-danger"
-                                    }`}
-                                >
-                                    {message.text}
-                                </div>
-                            )}
-
-                            <form onSubmit={handleSubmit}>
-
-                                <div className="mb-3">
-                                    <label className="form-label">
-                                        Candidate Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        className="form-control"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-
-                                <div className="mb-3">
-                                    <label className="form-label">
-                                        Party Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="partyName"
-                                        className="form-control"
-                                        value={formData.partyName}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-
-                                <div className="mb-3">
-                                    <label className="form-label">
-                                        Symbol
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="symbol"
-                                        className="form-control"
-                                        value={formData.symbol}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-
-                                <div className="mb-4">
-                                    <label className="form-label">
-                                        Active Election
-                                    </label>
-                                    <select
-                                        name="electionId"
-                                        className="form-select"
-                                        value={formData.electionId}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        {/* 2. Fixed: Informational context fallback when zero options are loaded */}
-                                        {elections.length === 0 ? (
-                                            <option value="">No Active Elections Available</option>
-                                        ) : (
-                                            <>
-                                                <option value="">Select Active Election</option>
-                                                {elections.map((election) => (
-                                                    <option
-                                                        key={election.id}
-                                                        value={election.id}
-                                                    >
-                                                        {election.title}
-                                                    </option>
-                                                ))}
-                                            </>
-                                        )}
-                                    </select>
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary w-100"
-                                    disabled={loading || elections.length === 0}
-                                >
-                                    {loading ? "Adding Candidate..." : "Add Candidate"}
-                                </button>
-
-                            </form>
-
-                        </div>
-                    </div>
-
-                </div>
+            <div>
+                <h1>Add Candidate</h1>
+                <p>
+                    Add candidates to active elections
+                </p>
             </div>
+
+            <button
+                className="back-btn"
+                onClick={() =>
+                    navigate("/AdminDashboard")
+                }
+            >
+                Back
+            </button>
+
         </div>
-    );
+
+        <div className="add-candidate-card">
+
+            {message.text && (
+                <div
+                    className={`message-alert ${
+                        message.type === "success"
+                            ? "success-alert"
+                            : "error-alert"
+                    }`}
+                >
+                    {message.text}
+                </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
+
+                <div className="form-group">
+                    <label>Candidate Name</label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        className="custom-input"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Enter candidate name"
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Party Name</label>
+
+                    <input
+                        type="text"
+                        name="partyName"
+                        className="custom-input"
+                        value={formData.partyName}
+                        onChange={handleChange}
+                        placeholder="Enter party name"
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Symbol</label>
+
+                    <input
+                        type="text"
+                        name="symbol"
+                        className="custom-input"
+                        value={formData.symbol}
+                        onChange={handleChange}
+                        placeholder="Enter election symbol"
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Active Election</label>
+
+                    <select
+                        name="electionId"
+                        className="custom-select"
+                        value={formData.electionId}
+                        onChange={handleChange}
+                        required
+                    >
+                        {elections.length === 0 ? (
+                            <option value="">
+                                No Active Elections Available
+                            </option>
+                        ) : (
+                            <>
+                                <option value="">
+                                    Select Active Election
+                                </option>
+
+                                {elections.map((election) => (
+                                    <option
+                                        key={election.id}
+                                        value={election.id}
+                                    >
+                                        {election.title}
+                                    </option>
+                                ))}
+                            </>
+                        )}
+                    </select>
+                </div>
+
+                <button
+                    type="submit"
+                    className="add-candidate-btn"
+                    disabled={
+                        loading ||
+                        elections.length === 0
+                    }
+                >
+                    {loading
+                        ? "Adding Candidate..."
+                        : "Add Candidate"}
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+);
 }
 
 export default AddCandidates;

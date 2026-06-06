@@ -1,0 +1,157 @@
+/* Page */
+.admin-dashboard-container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+/* Header */
+
+.admin-dashboard-header {
+    background: white;
+    border-radius: 16px;
+    padding: 25px 35px;
+    margin-bottom: 35px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.admin-dashboard-title {
+    margin: 0;
+    color: #1e293b;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.admin-dashboard-subtitle {
+    margin-top: 8px;
+    color: #64748b;
+}
+
+/* Logout */
+
+.logout-btn {
+    border: none;
+    background: #ef4444;
+    color: white;
+
+    padding: 12px 24px;
+    border-radius: 10px;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* Cards Grid */
+
+.admin-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* Card */
+
+.admin-action-card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-action-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+
+.admin-action-card h3 {
+    color: #1e293b;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.admin-action-card p {
+    color: #64748b;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* Buttons */
+
+.action-btn {
+    width: 100%;
+    border: none;
+
+    padding: 12px;
+    border-radius: 10px;
+
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* Create */
+
+.create-btn {
+    background: #22c55e;
+}
+
+.create-btn:hover {
+    background: #16a34a;
+}
+
+/* Candidate */
+
+.candidate-btn {
+    background: #2563eb;
+}
+
+.candidate-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Manage */
+
+.manage-btn {
+    background: #f59e0b;
+}
+
+.manage-btn:hover {
+    background: #d97706;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .admin-dashboard-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .admin-dashboard-container {
+        padding: 15px;
+    }
+}
