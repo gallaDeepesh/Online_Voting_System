@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/results";
+const API_URL = `${import.meta.env.VITE_API_URL}/results `;
 
 // Helper function to dynamically generate authorization headers
 const getAuthHeaders = () => {
