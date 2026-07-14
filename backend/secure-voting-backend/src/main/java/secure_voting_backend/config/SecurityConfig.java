@@ -67,7 +67,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Allow all paths
-                        .allowedOrigins("http://localhost:5173") // Replace with your frontend URL
+                        .allowedOrigins("http://localhost:5173", "https://online-voting-system-cyan.vercel.app/") // Replace with your frontend URL
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true); // Allow cookies/auth headers if needed
