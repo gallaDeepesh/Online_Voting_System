@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/auth`
+const API_URL = "http://16.171.10.108:8080/api/auth"
 export const registerUser = (userData) => {
     return axios.post(`${API_URL}/register`, userData);
 };
