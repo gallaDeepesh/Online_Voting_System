@@ -7,7 +7,7 @@ export const castVote = (voteData) => {
     const token = localStorage.getItem("token");
 
     return axios.post(
-        `${API_URL}/vote`,
+        `${API_URL}/api/vote`,
         voteData,
         {
             headers: {

@@ -7,7 +7,7 @@ export const getAllElections = () => {
   const token = localStorage.getItem("token");
 
   return axios.get(
-    `${API_URL}/elections/all`,
+    `${API_URL}/api/elections/all`,
     {
       headers: { Authorization: `Bearer ${token}`}
     }
@@ -18,7 +18,7 @@ export const createElection = async (electionData) => {
   const token = localStorage.getItem("token");
 
   return axios.post(
-    `${API_URL}/elections`,electionData,
+    `${API_URL}/api/elections`,electionData,
     {
       headers: {Authorization: `Bearer ${token}`}
     }
