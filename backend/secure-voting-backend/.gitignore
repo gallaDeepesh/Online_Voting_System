@@ -35,8 +35,16 @@ build/
 # Ignore environment files in any directory
 **/.env
 
+
+# application properties
+backend/secure-voting-backend/src/main/resources/application.propertiesgit rm --cached backend/secure-voting-backend/src/main/resources/application.properties
+
+
+
 # Ignore IntelliJ and Build folders
 .idea/
 **/target/
 **/out/
 **/node_modules/
+
+
