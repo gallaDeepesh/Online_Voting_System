@@ -12,7 +12,7 @@ export const getAllElections = () => {
       headers: { Authorization: `Bearer ${token}`}
     }
   );
-};
+};    
 
 export const createElection = async (electionData) => {
   const token = localStorage.getItem("token");
