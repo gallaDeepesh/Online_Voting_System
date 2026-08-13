@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api/results `;
+const API_URL = `${import.meta.env.VITE_API_URL}`;
 
 // Helper function to dynamically generate authorization headers
 const getAuthHeaders = () => {
@@ -14,15 +14,16 @@ const getAuthHeaders = () => {
 
 export const getResults = async (electionId) => {
     const response = await axios.get(
-        `${API_URL}/api/${electionId}`,
+        `${API_URL}/api/results/${electionId}`,
         getAuthHeaders() // Pass headers as the second argument for GET requests
     );
+    console.log(response);
     return response.data;
 };
 
 export const getWinner = async (electionId) => {
     const response = await axios.get(
-        `${API_URL}/api/${electionId}/winner`,
+        `${API_URL}/api/results/${electionId}/winner`,
         getAuthHeaders()
     );
     return response.data;
@@ -30,7 +31,7 @@ export const getWinner = async (electionId) => {
 
 export const getStats = async (electionId) => {
     const response = await axios.get(
-        `${API_URL}/api/${electionId}/stats`,
+        `${API_URL}/api/results/${electionId}/stats`,
         getAuthHeaders()
     );
     return response.data;

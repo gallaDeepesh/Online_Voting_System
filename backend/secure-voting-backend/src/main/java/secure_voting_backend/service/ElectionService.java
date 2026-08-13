@@ -5,6 +5,8 @@ import secure_voting_backend.dto.ElectionRequest;
 import secure_voting_backend.dto.ElectionResponse;
 import secure_voting_backend.entity.Election;
 import secure_voting_backend.repository.ElectionRepository;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -97,15 +99,20 @@ public class ElectionService {
 
         electionRepository.delete(election);
     }
+
     public String getElectionStatus(Election election) {
 
-        LocalDateTime now = LocalDateTime.now();
+        ZoneId istZone = ZoneId.of("Asia/Kolkata");
+        ZonedDateTime nowInIST = ZonedDateTime.now(istZone);
 
-        if (now.isBefore(election.getStartTime())) {
+        ZonedDateTime startTimeInIST = election.getStartTime().atZone(istZone);
+        ZonedDateTime endTimeInIST = election.getEndTime().atZone(istZone);
+
+        if (nowInIST.isBefore(startTimeInIST)) {
             return "UPCOMING";
         }
 
-        if (now.isAfter(election.getEndTime())) {
+        if (nowInIST.isAfter(endTimeInIST)) {
             return "COMPLETED";
         }
 
