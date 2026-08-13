@@ -244,7 +244,7 @@ MySQL Database
 
 ## Author
 
-Galla Deepesh
+Galla Deepesh, S.Siva Reddy
 
 B.Tech Computer Science Engineering
 
